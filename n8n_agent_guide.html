@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Travel Itinerary Planner Document & Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px auto;
+            max-width: 800px;
+            color: #333;
+            padding: 0 20px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
+        h1 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        ul {
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, monospace;
+        }
+
+        blockquote {
+            border-left: 4px solid #007bff;
+            margin: 0;
+            padding-left: 15px;
+            color: #666;
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>AI Travel Itinerary Planner Document &amp; Guide</h1>
+
+    <h2>1. What is n8n?</h2>
+    <ul>
+        <li><strong>Workflow Automation:</strong> n8n is a powerful, flexible automation tool that allows you to
+            visually connect any app or API together without heavy coding.</li>
+        <li><strong>How Workflows Function:</strong> Workflows consist of "nodes" mapped together on a graphical canvas.
+            A workflow always starts with a <code>Trigger</code> node, and the output data from one node flows
+            seamlessly into the next core node down the chain to perform operations on that data.</li>
+        <li><strong>Agentic AI Systems:</strong> By incorporating advanced LangChain nodes, n8n moves beyond rigid,
+            pre-programmed flows to create <strong>Agentic</strong> workflows. The AI becomes the "brain" routing the
+            conversation, reading the user intent, dynamically deciding which external tools to call (like web searches
+            or API hooks), and reasoning entirely on its own to achieve the user's implicit goal.</li>
+    </ul>
+
+    <hr>
+
+    <h2>2. Types of Nodes in n8n</h2>
+    <ul>
+        <li><strong>Trigger Nodes:</strong> The starting points of workflows. They launch the flow automatically based
+            on events.
+            <ul>
+                <li><em>Example:</em> A <code>Chat Trigger</code> waits for a user to type a message to start an
+                    interactive chat session, or a <code>Webhook</code> waits for an HTTP request.</li>
+            </ul>
+        </li>
+        <li><strong>Action Nodes (Basic Nodes):</strong> Standard nodes performing a single distinct, pre-programmed
+            job.
+            <ul>
+                <li><em>Example:</em> An <code>HTTP Request</code> fetching server data, a <code>Set</code> node to
+                    format outputs, or a <code>Gmail/SMTP</code> node to fire an email off in the background.</li>
+            </ul>
+        </li>
+        <li><strong>AI Agent Nodes:</strong> The decision-makers that take a connected Language Model (LLM) and a set of
+            system instructions, interacting autonomously to solve prompts.
+            <ul>
+                <li><em>Example:</em> The <code>Agent</code> node acts as the conversational travel planner.</li>
+            </ul>
+        </li>
+        <li><strong>Language Model Nodes:</strong> The actual AI brains connected to the an Agent.
+            <ul>
+                <li><em>Example:</em> The <code>OpenAI Chat Model</code> securely passes instructions to underlying base
+                    models like GPT-4o.</li>
+            </ul>
+        </li>
+        <li><strong>Memory Nodes:</strong> Nodes that track and store previous interactions so the chatbot can handle
+            follow-up questions natively without losing context.
+            <ul>
+                <li><em>Example:</em> <code>Window Buffer Memory</code> stores the last few messages tied uniquely to
+                    the current user's chat session ID.</li>
+            </ul>
+        </li>
+        <li><strong>Tool Nodes:</strong> Specialized capabilities granted to the Agent so it can interact with the
+            outside world. The agent chooses when to execute these functions.
+            <ul>
+                <li><em>Example:</em> The <code>Search (SerpAPI)</code> searches live Google results, or the
+                    <code>Calculator</code> strictly processes tight budgets mathematically.</li>
+            </ul>
+        </li>
+        <li><strong>Logic Nodes:</strong> These control the flow of data depending on conditions.
+            <ul>
+                <li><em>Example:</em> The <code>If</code> node branches the workflow down path A or path B based on
+                    checking true/false field values.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <hr>
+
+    <h2>3. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"</h2>
+    <p>You can manually re-build the specific <strong>AI Travel Itinerary Planner</strong> natively inside your n8n
+        workspace by re-creating the structure defined in your <code>.json</code> file. Follow these exact node
+        instructions:</p>
+
+    <p><strong>Step 1: Start the Conversation (Chat Interface)</strong></p>
+    <ul>
+        <li>Add a <strong>Chat Trigger</strong> node.</li>
+        <li><strong>What it does:</strong> This provides the interactive chat window UI for the end-user and
+            automatically passes an ongoing <code>sessionId</code> parameter to track the conversation.</li>
+    </ul>
+
+    <p><strong>Step 2: Add the Agent Brain</strong></p>
+    <ul>
+        <li>Add an <strong>AI Agent</strong> node.</li>
+        <li>Name it <strong>Travel Itinerary Planner</strong>.</li>
+        <li>Wire the output of the <strong>Chat Trigger</strong> directly into the <code>Main</code> input of the Agent.
+        </li>
+        <li><strong>Prompt Setup:</strong> In the options, set the System Message to:
+            <blockquote><em>"You are an expert travel planner assistant. Speak naturally with the user to discover their
+                    destination, budget, duration, and preferences. Once you have enough information, use your tools
+                    (like SerpAPI and Calculator) to generate a detailed day-by-day itinerary. CRITICAL INSTRUCTION: You
+                    MUST format the final itinerary exclusively as a Markdown table with exactly these three columns: |
+                    Day | Plan | Cost |"</em></blockquote>
+        </li>
+    </ul>
+
+    <p><strong>Step 3: Connect the LLM</strong></p>
+    <ul>
+        <li>Add an <strong>OpenAI Chat Model</strong> node.</li>
+        <li>Select your OpenAI Credentials and set the model block to <code>gpt-4o</code>.</li>
+        <li>Wire the output point straight to the <code>Language Model</code> port on your AI Agent.</li>
+    </ul>
+
+    <p><strong>Step 4: Enable Chat Memory for the Trip Planning</strong></p>
+    <ul>
+        <li>Add a <strong>Window Buffer Memory</strong> node.</li>
+        <li>Link it to the <code>Memory</code> port of the AI Agent.</li>
+        <li><strong>Configuration:</strong> Click into the node. Change the Session ID setting explicitly to
+            <code>={{ $('Chat Trigger').item.json.sessionId }}</code> (or select the "Connected Chat Trigger Node"
+            dropdown).</li>
+        <li><strong>What it does:</strong> This ensures the AI remembers user budgets and preferences mid-conversation
+            rather than forgetting between messages.</li>
+    </ul>
+
+    <p><strong>Step 5: Provide External Tools to the Trip Planner</strong></p>
+    <ul>
+        <li><strong>Tool 1: Search Travel Info</strong>
+            <ul>
+                <li>Add a <strong>Search (SerpAPI)</strong> tool and enter your SerpAPI credentials.</li>
+                <li>Wire it into the <code>Tools</code> port of your AI Agent. This allows the bot to search current
+                    real-world flight prices, top-rated hotels, and active local events instead of halluncinating data.
+                </li>
+            </ul>
+        </li>
+        <li><strong>Tool 2: Calculate Costs</strong>
+            <ul>
+                <li>Add a <strong>Calculator</strong> tool.</li>
+                <li>Wire it onto the same <code>Tools</code> port of the AI Agent. The agent will use this to accurately
+                    calculate the day-by-day cost against the user's hard budget limitation without making math errors.
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <p><strong>Summary of Data Flow:</strong><br>
+        User inputs text in <strong>Chat Trigger</strong> -&gt; Flows into <strong>Travel Planner Agent</strong> -&gt;
+        The Agent utilizes <strong>OpenAI</strong> to reason, pulls past context from <strong>Window Buffer</strong>,
+        and actively queries <strong>SerpAPI</strong> and the <strong>Calculator</strong> to structure the response
+        mathematically back to the user as a Markdown table.</p>
+
+    <hr>
+
+    <h2>4. Sample Prompts for Different Agentic Use Cases</h2>
+    <p>Test out your new chatbot's capabilities natively in the n8n interface using these examples:</p>
+
+    <h3>1. Memory Usage (Window Buffer Context)</h3>
+    <p><em>Prompt 1:</em> "I want to take my partner on a 3-day anniversary trip to Rome. We absolutely despise seafood,
+        and love classical architecture."<br>
+        <em>Prompt 2 (Sent immediately after):</em> "Actually, Paris might be more romantic. Change the destination to
+        Paris, but keep the 3-day duration and the deep food constraints the exact same."
+    </p>
+
+    <h3>2. Tool Calling (Search &amp; Calculate)</h3>
+    <p><em>Prompt:</em> "I have exactly $2,500 for a 4-day trip to London. I want to see a popular play in the West End
+        taking place this month. Use your search to find the price for one, use your calculator to determine how much
+        I'd have left over for a modest hotel, and lay it out in the table."</p>
+
+    <h3>3. Multi-Agent Workflows (Handoffs to Specialists)</h3>
+    <p><em>Prompt:</em> "I need a full content strategy for a new coffee brand. Have your Research Agent find 5 trending
+        coffee topics, have your SEO Agent write the keywords, and then have your Writer Agent generate the blog post
+        drafts."<br>
+        <em>(Note: This requires explicitly connecting multiple sub-Agents as 'tools' to one master Supervisor Agent
+            node!)</em>
+    </p>
+
+    <h3>4. Data Retrieval (Live API Querying)</h3>
+    <p><em>Prompt:</em> "What is the detailed live weather forecast for Helsinki over the coming weekend? Recommend an
+        itinerary entirely based on whether it is going to rain or be sunny."</p>
+
+    <h3>5. Decision-Making Agents (Reasoning)</h3>
+    <p><em>Prompt:</em> "I need to travel from Chicago to Miami next week for a conference. Search for the absolute
+        cheapest travel method, and search for the fastest travel method. Use the calculator to explain the robust
+        time-vs-money difference, and decide which is a better overall value if I value my time specifically at $75 per
+        hour."</p>
+
+</body>
+
+</html>

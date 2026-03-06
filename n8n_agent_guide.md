@@ -29,33 +29,33 @@
 You can manually re-build the specific **AI Travel Itinerary Planner** natively inside your n8n workspace by re-creating the structure defined in your `.json` file. Follow these exact node instructions:
 
 **Step 1: Start the Conversation (Chat Interface)**
-- Add a **Chat Trigger** node (Node Type: `@n8n/n8n-nodes-langchain.chatTrigger`). 
+- Add a **Chat Trigger** node. 
 - **What it does:** This provides the interactive chat window UI for the end-user and automatically passes an ongoing `sessionId` parameter to track the conversation.
 
 **Step 2: Add the Agent Brain**
-- Add an **AI Agent** node (Node Type: `@n8n/n8n-nodes-langchain.agent`).
+- Add an **AI Agent** node.
 - Name it **Travel Itinerary Planner**.
 - Wire the output of the **Chat Trigger** directly into the `Main` input of the Agent.
 - **Prompt Setup:** In the options, set the System Message to:
   > *"You are an expert travel planner assistant. Speak naturally with the user to discover their destination, budget, duration, and preferences. Once you have enough information, use your tools (like SerpAPI and Calculator) to generate a detailed day-by-day itinerary. CRITICAL INSTRUCTION: You MUST format the final itinerary exclusively as a Markdown table with exactly these three columns: | Day | Plan | Cost |"*
 
 **Step 3: Connect the LLM**
-- Add an **OpenAI Chat Model** node (Node Type: `@n8n/n8n-nodes-langchain.lmChatOpenAi`).
+- Add an **OpenAI Chat Model** node.
 - Select your OpenAI Credentials and set the model block to `gpt-4o`.
 - Wire the output point straight to the `Language Model` port on your AI Agent.
 
 **Step 4: Enable Chat Memory for the Trip Planning**
-- Add a **Window Buffer Memory** node (Node Type: `@n8n/n8n-nodes-langchain.memoryBufferWindow`).
+- Add a **Window Buffer Memory** node.
 - Link it to the `Memory` port of the AI Agent.
 - **Configuration:** Click into the node. Change the Session ID setting explicitly to `={{ $('Chat Trigger').item.json.sessionId }}` (or select the "Connected Chat Trigger Node" dropdown). 
 - **What it does:** This ensures the AI remembers user budgets and preferences mid-conversation rather than forgetting between messages.
 
 **Step 5: Provide External Tools to the Trip Planner**
 - **Tool 1: Search Travel Info**
-  - Add a **Search (SerpAPI)** tool (Node Type: `@n8n/n8n-nodes-langchain.toolSerpApi`) and enter your SerpAPI credentials.
+  - Add a **Search (SerpAPI)** tool and enter your SerpAPI credentials.
   - Wire it into the `Tools` port of your AI Agent. This allows the bot to search current real-world flight prices, top-rated hotels, and active local events instead of halluncinating data.
 - **Tool 2: Calculate Costs**
-  - Add a **Calculator** tool (Node Type: `@n8n/n8n-nodes-langchain.toolCalculator`).
+  - Add a **Calculator** tool.
   - Wire it onto the same `Tools` port of the AI Agent. The agent will use this to accurately calculate the day-by-day cost against the user's hard budget limitation without making math errors.
 
 **Summary of Data Flow:**
