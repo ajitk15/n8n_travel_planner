@@ -122,7 +122,8 @@
             outside world. The agent chooses when to execute these functions.
             <ul>
                 <li><em>Example:</em> The <code>Search (SerpAPI)</code> searches live Google results, or the
-                    <code>Calculator</code> strictly processes tight budgets mathematically.</li>
+                    <code>Calculator</code> strictly processes tight budgets mathematically.
+                </li>
             </ul>
         </li>
         <li><strong>Logic Nodes:</strong> These control the flow of data depending on conditions.
@@ -135,7 +136,43 @@
 
     <hr>
 
-    <h2>3. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"</h2>
+    <h2>3. Pre-Requisites</h2>
+    <p>Before building your agent, you will need active accounts and API keys for the services used in the workflow.</p>
+
+    <h3>1. Sign up to n8n</h3>
+    <ul>
+        <li><strong>Cloud version:</strong> Go to <a href="https://n8n.cloud/">n8n.cloud</a> and sign up for an account.
+            This is the easiest way to get started.</li>
+        <li><strong>Self-hosting:</strong> Alternatively, you can run n8n locally using Docker or npm. See the <a
+                href="https://docs.n8n.io/hosting/">n8n documentation</a> for self-hosting instructions.</li>
+    </ul>
+
+    <h3>2. Create OpenAI API Key</h3>
+    <ul>
+        <li>Go to the <a href="https://platform.openai.com/">OpenAI Platform</a>.</li>
+        <li>Sign up or log into your account.</li>
+        <li>Navigate to the <strong>API keys</strong> page (usually found under your profile or the left sidebar).</li>
+        <li>Click <strong>"Create new secret key"</strong>. Name it something like <code>n8n Travel Agent</code>.</li>
+        <li>Copy this key immediately (it is only shown once) and add it as an OpenAI credential in your n8n workspace.
+        </li>
+    </ul>
+
+    <h3>3. Create SerpAPI Key</h3>
+    <ul>
+        <li>Go to <a href="https://serpapi.com/">SerpApi</a> and register for an account (they offer a free tier
+            covering up to 100 searches/month).</li>
+        <li>Once logged in, go to your <strong>Dashboard</strong>.</li>
+        <li>Copy your <strong>API Key</strong> from the dashboard.</li>
+        <li>Create a new SerpAPI credential inside your n8n workspace and paste the key.</li>
+    </ul>
+
+    <hr>
+
+    <h2>4. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"</h2>
+
+    <img src="./workflow_diagram.png" alt="AI Travel Itinerary Planner Workflow"
+        style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 20px 0;">
+
     <p>You can manually re-build the specific <strong>AI Travel Itinerary Planner</strong> natively inside your n8n
         workspace by re-creating the structure defined in your <code>.json</code> file. Follow these exact node
         instructions:</p>
@@ -175,7 +212,8 @@
         <li>Link it to the <code>Memory</code> port of the AI Agent.</li>
         <li><strong>Configuration:</strong> Click into the node. Change the Session ID setting explicitly to
             <code>={{ $('Chat Trigger').item.json.sessionId }}</code> (or select the "Connected Chat Trigger Node"
-            dropdown).</li>
+            dropdown).
+        </li>
         <li><strong>What it does:</strong> This ensures the AI remembers user budgets and preferences mid-conversation
             rather than forgetting between messages.</li>
     </ul>
@@ -208,7 +246,7 @@
 
     <hr>
 
-    <h2>4. Sample Prompts for Different Agentic Use Cases</h2>
+    <h2>5. Sample Prompts for Different Agentic Use Cases</h2>
     <p>Test out your new chatbot's capabilities natively in the n8n interface using these examples:</p>
 
     <h3>1. Memory Usage (Window Buffer Context)</h3>

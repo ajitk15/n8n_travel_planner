@@ -25,7 +25,32 @@
 
 ---
 
-## 3. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"
+## 3. Pre-Requisites
+Before building your agent, you will need active accounts and API keys for the services used in the workflow.
+
+### 1. Sign up to n8n
+- **Cloud version:** Go to [n8n.cloud](https://n8n.cloud/) and sign up for an account. This is the easiest way to get started.
+- **Self-hosting:** Alternatively, you can run n8n locally using Docker or npm. See the [n8n documentation](https://docs.n8n.io/hosting/) for self-hosting instructions.
+
+### 2. Create OpenAI API Key
+- Go to the [OpenAI Platform](https://platform.openai.com/).
+- Sign up or log into your account.
+- Navigate to the **API keys** page (usually found under your profile or the left sidebar).
+- Click **"Create new secret key"**. Name it something like `n8n Travel Agent`.
+- Copy this key immediately (it is only shown once) and add it as an OpenAI credential in your n8n workspace.
+
+### 3. Create SerpAPI Key
+- Go to [SerpApi](https://serpapi.com/) and register for an account (they offer a free tier covering up to 100 searches/month).
+- Once logged in, go to your **Dashboard**.
+- Copy your **API Key** from the dashboard.
+- Create a new SerpAPI credential inside your n8n workspace and paste the key.
+
+---
+
+## 4. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"
+
+![AI Travel Itinerary Planner Workflow](./workflow_diagram.png)
+
 You can manually re-build the specific **AI Travel Itinerary Planner** natively inside your n8n workspace by re-creating the structure defined in your `.json` file. Follow these exact node instructions:
 
 **Step 1: Start the Conversation (Chat Interface)**
@@ -63,7 +88,7 @@ User inputs text in **Chat Trigger** -> Flows into **Travel Planner Agent** -> T
 
 ---
 
-## 4. Sample Prompts for Different Agentic Use Cases
+## 5. Sample Prompts for Different Agentic Use Cases
 Test out your new chatbot's capabilities natively in the n8n interface using these examples:
 
 ### 1. Memory Usage (Window Buffer Context)
