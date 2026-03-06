@@ -136,15 +136,28 @@
 
     <hr>
 
-    <h2>3. Pre-Requisites</h2>
+    <h2>3. Use Case: Chat-Based AI Travel Planner</h2>
+    <p>The workflow we are building is an <strong>Interactive AI Travel Itinerary Planner</strong>.</p>
+    <p>Traditionally, building a customized travel itinerary requires hours of manual research across tabs. By
+        leveraging n8n, LangChain, and OpenAI, we created a conversational assistant that:</p>
+    <ul>
+        <li>Seamlessly chats with users to discover their destination, budget, and specific preferences.</li>
+        <li>Autonomously uses live web search (SerpAPI) to fetch current prices and popular attractions.</li>
+        <li>Calculates and guarantees the trip fits within a user's strict budget using a Calculator tool.</li>
+        <li>Outputs a structured, day-by-day itinerary directly into the chat interface.</li>
+    </ul>
+    <p>This transforms a rigid web-form process into a dynamic, intelligent conversation that remembers context and
+        adapts to mid-conversation changes.</p>
+
+    <hr>
+
+    <h2>4. Pre-Requisites</h2>
     <p>Before building your agent, you will need active accounts and API keys for the services used in the workflow.</p>
 
     <h3>1. Sign up to n8n</h3>
     <ul>
         <li><strong>Cloud version:</strong> Go to <a href="https://n8n.cloud/">n8n.cloud</a> and sign up for an account.
             This is the easiest way to get started.</li>
-        <li><strong>Self-hosting:</strong> Alternatively, you can run n8n locally using Docker or npm. See the <a
-                href="https://docs.n8n.io/hosting/">n8n documentation</a> for self-hosting instructions.</li>
     </ul>
 
     <h3>2. Create OpenAI API Key</h3>
@@ -168,7 +181,7 @@
 
     <hr>
 
-    <h2>4. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"</h2>
+    <h2>5. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"</h2>
 
     <img src="./workflow_diagram.png" alt="AI Travel Itinerary Planner Workflow"
         style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 20px 0;">
@@ -246,7 +259,7 @@
 
     <hr>
 
-    <h2>5. Sample Prompts for Different Agentic Use Cases</h2>
+    <h2>6. Sample Prompts for Different Agentic Use Cases</h2>
     <p>Test out your new chatbot's capabilities natively in the n8n interface using these examples:</p>
 
     <h3>1. Memory Usage (Window Buffer Context)</h3>

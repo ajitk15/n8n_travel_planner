@@ -25,12 +25,23 @@
 
 ---
 
-## 3. Pre-Requisites
+## 3. Use Case: Chat-Based AI Travel Planner
+The workflow we are building is an **Interactive AI Travel Itinerary Planner**. 
+Traditionally, building a customized travel itinerary requires hours of manual research across tabs. By leveraging n8n, LangChain, and OpenAI, we created a conversational assistant that:
+- Seamlessly chats with users to discover their destination, budget, and specific preferences.
+- Autonomously uses live web search (SerpAPI) to fetch current prices and popular attractions.
+- Calculates and guarantees the trip fits within a user's strict budget using a Calculator tool.
+- Outputs a structured, day-by-day itinerary directly into the chat interface.
+
+This transforms a rigid web-form process into a dynamic, intelligent conversation that remembers context and adapts to mid-conversation changes.
+
+---
+
+## 4. Pre-Requisites
 Before building your agent, you will need active accounts and API keys for the services used in the workflow.
 
 ### 1. Sign up to n8n
 - **Cloud version:** Go to [n8n.cloud](https://n8n.cloud/) and sign up for an account. This is the easiest way to get started.
-- **Self-hosting:** Alternatively, you can run n8n locally using Docker or npm. See the [n8n documentation](https://docs.n8n.io/hosting/) for self-hosting instructions.
 
 ### 2. Create OpenAI API Key
 - Go to the [OpenAI Platform](https://platform.openai.com/).
@@ -47,7 +58,7 @@ Before building your agent, you will need active accounts and API keys for the s
 
 ---
 
-## 4. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"
+## 5. Manual Workflow Creation Guide: "AI Travel Itinerary Planner with Email Delivery"
 
 ![AI Travel Itinerary Planner Workflow](./workflow_diagram.png)
 
@@ -88,7 +99,7 @@ User inputs text in **Chat Trigger** -> Flows into **Travel Planner Agent** -> T
 
 ---
 
-## 5. Sample Prompts for Different Agentic Use Cases
+## 6. Sample Prompts for Different Agentic Use Cases
 Test out your new chatbot's capabilities natively in the n8n interface using these examples:
 
 ### 1. Memory Usage (Window Buffer Context)
