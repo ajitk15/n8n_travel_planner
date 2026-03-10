@@ -40,6 +40,8 @@ This transforms a rigid web-form process into a dynamic, intelligent conversatio
 ## 4. Pre-Requisites
 Before building your agent, you will need active accounts and API keys for the services used in the workflow.
 
+> **Note:** If you encounter any blocks or errors while setting up your OpenAI or SerpAPI accounts, try repeating the process. A second attempt often resolves the issue.
+
 ### 1. Sign up to n8n
 - **Cloud version:** Go to [n8n.cloud](https://n8n.cloud/) and sign up for an account. This is the easiest way to get started.
 
@@ -72,30 +74,32 @@ You can manually re-build the specific **AI Travel Itinerary Planner** natively 
 - Add an **AI Agent** node.
 - Name it **Travel Itinerary Planner**.
 - Wire the output of the **Chat Trigger** directly into the `Main` input of the Agent.
-- **Prompt Setup:** In the options, set the System Message to:
+- **Prompt Setup:** In the options, choose the **Add option** drop-down list to select **System message**, and set it to:
   > *"You are an expert travel planner assistant. Speak naturally with the user to discover their destination, budget, duration, and preferences. Once you have enough information, use your tools (like SerpAPI and Calculator) to generate a detailed day-by-day itinerary. CRITICAL INSTRUCTION: You MUST format the final itinerary exclusively as a Markdown table with exactly these three columns: | Day | Plan | Cost |"*
 
 **Step 3: Connect the LLM**
-- Add an **OpenAI Chat Model** node.
-- Select your OpenAI Credentials and set the model block to `gpt-4o`.
-- Wire the output point straight to the `Language Model` port on your AI Agent.
+- Click the Add (**+**) button on your **Travel Itinerary Planner** AI Agent node to add a **Chat model**.
+- Select the **OpenAI Chat Model**.
+- Choose your OpenAI Credentials and set the model block to `gpt-4o`.
 
 **Step 4: Enable Chat Memory for the Trip Planning**
-- Add a **Window Buffer Memory** node.
-- Link it to the `Memory` port of the AI Agent.
-- **Configuration:** Click into the node. Change the Session ID setting explicitly to `={{ $('Chat Trigger').item.json.sessionId }}` (or select the "Connected Chat Trigger Node" dropdown). 
+- Click the Add (**+**) button on your **Travel Itinerary Planner** AI Agent node to add **Memory**.
+- Select **Simple Memory** 
+- **Configuration:** Click into the memory node. Ensure the Session ID setting explicitly tracks `={{ $('Chat Trigger').item.json.sessionId }}` (or select the "Connected Chat Trigger Node" dropdown). 
 - **What it does:** This ensures the AI remembers user budgets and preferences mid-conversation rather than forgetting between messages.
 
 **Step 5: Provide External Tools to the Trip Planner**
+- Click the Add (**+**) button on your **Travel Itinerary Planner** AI Agent node to add a **Tool**.
 - **Tool 1: Search Travel Info**
   - Add a **Search (SerpAPI)** tool and enter your SerpAPI credentials.
-  - Wire it into the `Tools` port of your AI Agent. This allows the bot to search current real-world flight prices, top-rated hotels, and active local events instead of halluncinating data.
+  - This allows the bot to search current real-world flight prices, top-rated hotels, and active local events instead of hallucinating data.
+- Click the Add (**+**) button again on your AI Agent node to add another **Tool**.
 - **Tool 2: Calculate Costs**
   - Add a **Calculator** tool.
-  - Wire it onto the same `Tools` port of the AI Agent. The agent will use this to accurately calculate the day-by-day cost against the user's hard budget limitation without making math errors.
+  - The agent will use this to accurately calculate the day-by-day cost against the user's hard budget limitation without making math errors.
 
 **Summary of Data Flow:**
-User inputs text in **Chat Trigger** -> Flows into **Travel Planner Agent** -> The Agent utilizes **OpenAI** to reason, pulls past context from **Window Buffer**, and actively queries **SerpAPI** and the **Calculator** to structure the response mathematically back to the user as a Markdown table.
+User inputs text in **Chat Trigger** -> Flows into **Travel Planner Agent** -> The Agent utilizes **OpenAI** to reason, pulls past context from **Simple Memory**, and actively queries **SerpAPI** and the **Calculator** to structure the response mathematically back to the user as a Markdown table.
 
 ---
 
